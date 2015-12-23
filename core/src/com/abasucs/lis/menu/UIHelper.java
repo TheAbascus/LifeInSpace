@@ -1,21 +1,21 @@
 package com.abasucs.lis.menu;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UIHelper {
 
@@ -24,10 +24,13 @@ public class UIHelper {
 	public static Skin uiSkin;
 
 	public static TextButtonStyle TBStyle;
+	public static TextButtonStyle invisTBStyle;
 	public static TextFieldStyle TFStyle;
 	public static CheckBoxStyle CBStyle;
 	public static LabelStyle LStyle;
 	public static Map<String,BitmapFont> font = new HashMap<String, BitmapFont>();
+
+	public static Drawable invis;
 
 	public static void setup()
 	{
@@ -38,13 +41,27 @@ public class UIHelper {
 		CBStyle = uiSkin.get(CheckBoxStyle.class);
 		LStyle = uiSkin.get(LabelStyle.class);
 
+		Drawable invis = new BaseDrawable();
+		invisTBStyle = new TextButtonStyle(TBStyle);
+		invisTBStyle.up = invis;
+		invisTBStyle.down = invis;
 	}
 
 
-	public static TextButton genButton(String name, String internalN, float width, float height, float x, float y, int size)
+	public static TextButton genButton(String name, String internalN, float width, float height, float x, float y, int size, boolean visible)
 	{
-		TBStyle.font=getFont(size);
-		TextButton button = new TextButton(name, TBStyle);
+		TextButton button = null;
+		if(visible)
+		{
+			TBStyle.font=getFont(size);
+			button = new TextButton(name, TBStyle);
+		}
+		else
+		{
+			invisTBStyle.font=getFont(size);
+			button = new TextButton(name, invisTBStyle);
+		}
+
 		button.setName(internalN);
 		button.setBounds(x, y, width, height);
 		return button;
