@@ -1,5 +1,6 @@
 package com.abasucs.lis;
 
+import com.abasucs.lis.menu.MainMenuScreen;
 import com.abasucs.lis.menu.UIHelper;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -32,6 +33,8 @@ public class Main extends Game
         prefData.putString("user", "");
         prefData.putString("password", "");
         prefData.flush();
+
+        setScreen(new MainMenuScreen(this));
 
     }
 }

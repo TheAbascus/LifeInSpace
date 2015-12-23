@@ -31,7 +31,7 @@ public class UIHelper {
 
 	public static void setup()
 	{
-		uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+		uiSkin = new Skin(Gdx.files.internal("menu/uiskin.json"));
 
 		TBStyle = uiSkin.get(TextButtonStyle.class);
 		TFStyle = uiSkin.get(TextFieldStyle.class);
