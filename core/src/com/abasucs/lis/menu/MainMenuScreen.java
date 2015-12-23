@@ -118,7 +118,6 @@ public class MainMenuScreen extends InputListener implements Screen
 
     public void touchUp(InputEvent event, float x, float y, int pointer, int button)
     {
-        //TODO is legit?
         String name = event.getListenerActor().getName();
         if (name.equals("playFreeRoam") && startFreeRoam.isChecked())
         {
