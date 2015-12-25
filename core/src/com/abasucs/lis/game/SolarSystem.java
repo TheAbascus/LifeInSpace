@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 /**
- * Created by Jannik on 23.12.2015.
+ * Created by Abasucs on 23.12.2015.
  */
 public class SolarSystem
 {
@@ -70,7 +70,6 @@ public class SolarSystem
 
     public void addPlanet(float x, float y, float r)
     {
-
         BodyDef groundBodyDef =new BodyDef();
         groundBodyDef.position.set(new Vector2(x, y));
 

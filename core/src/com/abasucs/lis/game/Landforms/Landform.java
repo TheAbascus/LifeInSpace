@@ -1,0 +1,35 @@
+package com.abasucs.lis.game.Landforms;
+
+public abstract class Landform
+{
+    public Type type;
+    public boolean hasWorker = false;
+    public int pos, size, maxRes, currentRes;
+
+
+    public Landform(Type t, int p, int maxR, int currentR)
+    {
+        type = t;
+        pos = p%360;
+        maxRes = maxR;
+        currentRes = currentR;
+    }
+
+    public abstract void render(float delta);
+    public abstract boolean onClick();
+
+
+
+    public enum Type
+    {
+        WASTELANDS,
+        FOREST,
+        IRON_MOUNTAIN,
+        GOLD_MOUNTAIN,
+        DESERT,
+        MEADOW,
+        CORNFIELD,
+        CATTLE_MEADOW,
+        PLASMA_SPRING
+    }
+}
