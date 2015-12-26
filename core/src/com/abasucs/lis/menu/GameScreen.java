@@ -1,6 +1,9 @@
 package com.abasucs.lis.menu;
 
+import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
+import com.abasucs.lis.game.Level;
+import com.abasucs.lis.game.LevelIO;
 import com.abasucs.lis.game.SolarSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -18,7 +21,7 @@ public class GameScreen implements Screen
 {
     Main game;
     Stage stage;
-    SolarSystem ss;
+    Level level;
 
     SpriteBatch batch;
     OrthographicCamera cam;
@@ -26,12 +29,12 @@ public class GameScreen implements Screen
     float Gwidth, Gheight;
 
 
-    public GameScreen(Main instance)
+    public GameScreen(Main instance, Level l)
     {
         game = instance;
 
         batch = new SpriteBatch();
-        ss = new SolarSystem();
+       level = l;
     }
 
     @Override
@@ -44,9 +47,8 @@ public class GameScreen implements Screen
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
-        ss.tick(delta);
         batch.begin();
-        ss.render(cam);
+        level.render(delta, cam);
         stage.draw();
         batch.end();
     }
@@ -75,10 +77,10 @@ public class GameScreen implements Screen
     @Override
     public void show()
     {
-        cam = new OrthographicCamera(1000, 1000);
+        cam = new OrthographicCamera(Constants.WORLDX, Constants.WORLDY);
         viewport = new ScreenViewport(cam);
         cam.update();
-        cam.position.set(cam.viewportWidth, cam.viewportHeight, 0);
+        cam.position.set(cam.viewportWidth, cam.viewportHeight, 500);
         batch.setProjectionMatrix(cam.combined);
     }
 

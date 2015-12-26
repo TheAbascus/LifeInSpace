@@ -122,7 +122,6 @@ public class MainMenuScreen extends InputListener implements Screen
         if (name.equals("playFreeRoam") && startFreeRoam.isChecked())
         {
             game.setScreen(new LevelSelectorScreen(game));
-               // game.setScreen(new GameScreen(game));
         }
         else if (name.equals("playArcade") && startArcade.isChecked())
         {

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -22,7 +21,7 @@ public class SolarSystem
 
     public SolarSystem()
     {
-        Box2D.init();
+
         world = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, -100), true);
         debugRenderer = new Box2DDebugRenderer();
 

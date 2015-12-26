@@ -1,5 +1,7 @@
 package com.abasucs.lis.game.Landforms;
 
+import com.badlogic.gdx.graphics.Camera;
+
 public abstract class Landform
 {
     public Type type;
@@ -15,7 +17,7 @@ public abstract class Landform
         currentRes = currentR;
     }
 
-    public abstract void render(float delta);
+    public abstract void render(float delta, Camera camera);
 
     public abstract boolean onClick();
 
@@ -27,6 +29,8 @@ public abstract class Landform
                 return new Wastelands(p);
             case FOREST:
                 return new Forest(p, maxR, currentR);
+            case IRON_MOUNTAIN:
+                return new IronMontain(p, maxR, currentR);
             //TODO add others
 
 

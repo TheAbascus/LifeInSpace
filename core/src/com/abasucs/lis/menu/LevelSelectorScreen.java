@@ -2,6 +2,7 @@ package com.abasucs.lis.menu;
 
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
+import com.abasucs.lis.game.LevelIO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
@@ -113,11 +114,7 @@ public class LevelSelectorScreen extends InputListener implements Screen
     {
         String name = event.getListenerActor().getName();
 
-        if (name.equals("playFreeRoam") || name.equals("playArcade") || name.equals("settings") || name.equals("credits") || name.equals("exit"))
-        {
             return true;
-        }
-        return false;
     }
 
     public void touchUp(InputEvent event, float x, float y, int pointer, int button)
@@ -126,6 +123,16 @@ public class LevelSelectorScreen extends InputListener implements Screen
         if (name.equals("exit") && exitButton.isChecked())
         {
             Gdx.app.exit();
+        }
+        else if(name.split("/").length==2)
+        {
+            try
+            {
+                game.setScreen(new GameScreen(game, LevelIO.loadLevel(Constants.LEVELPATH + name)));
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -147,7 +154,7 @@ public class LevelSelectorScreen extends InputListener implements Screen
         table.add(emptyLabel).width(unitWidth * 10).height(unitHeight * 0.5f);
         table.row();
 
-        FileHandle handle = Gdx.files.internal(Constants.levelPath);
+        FileHandle handle = Gdx.files.internal(Constants.LEVELPATH);
         if (handle.isDirectory())
         {
             FileHandle[] dirs = handle.list();
@@ -163,7 +170,8 @@ public class LevelSelectorScreen extends InputListener implements Screen
                 for (j = 0; j < files.length; j++)
                 {
                     TextButton b = UIHelper.genButton(files[j].nameWithoutExtension(), dirs[i].name() + "/" + files[j].name(), unitHeight / 2, unitHeight / 2, 0, 0, 28, true);
-                    b.padLeft(unitHeight/3);
+                    b.padLeft(unitHeight / 3);
+                    b.addListener(this);
                     group.addActor(b);
                     r.levels.put(files[j].name(), b);
                 }

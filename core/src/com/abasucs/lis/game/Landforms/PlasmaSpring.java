@@ -3,19 +3,19 @@ package com.abasucs.lis.game.Landforms;
 import com.badlogic.gdx.graphics.Camera;
 
 /**
- * Created by Abascus on 25.12.2015.
+ * Created by Abascus on 26.12.2015.
  */
-public class Wastelands extends Landform
+public class PlasmaSpring extends Landform
 {
-    public Wastelands(int p)
+    public PlasmaSpring(int p, int maxR, int currentR)
     {
-        super(Type.WASTELANDS, p,0,0);
+        super(Type.PLASMA_SPRING, p, maxR, currentR);
     }
 
     @Override
     public void render(float delta, Camera camera)
     {
-//TODO
+
     }
 
     @Override

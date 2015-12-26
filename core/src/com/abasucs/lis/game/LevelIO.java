@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public class LevelIO
 {
+
     public static Level loadLevel(String path) throws Exception
     {
         FileHandle handle = Gdx.files.internal(path);
@@ -23,7 +24,6 @@ public class LevelIO
         int line = 0;
         Level level = new Level();
         level.name = iterator.next();
-        level.planets = new Planet[Integer.parseInt(iterator.next())];
 
         String current;
 
@@ -58,11 +58,11 @@ public class LevelIO
                     {
                         level.addPlanet(p);
                     }
-                    else if(current.contentEquals(""))
+                    else if(current.matches("[\r\n]+"))
                     {}
                     else
                     {
-                        throw new Exception("Defect Planet on line" + line + "of" + path);
+                        throw new Exception("Defect Planet on line " + line + " of " + path);
                     }
                 }
 
@@ -85,7 +85,6 @@ public class LevelIO
             }
         }
 
-        //TODO read Level
         return level;
     }
 

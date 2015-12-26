@@ -1,5 +1,7 @@
 package com.abasucs.lis.game.Landforms;
 
+import com.badlogic.gdx.graphics.Camera;
+
 /**
  * Created by Abascus on 25.12.2015.
  */
@@ -11,7 +13,7 @@ public class Forest extends Landform
     }
 
     @Override
-    public void render(float delta)
+    public void render(float delta, Camera camera)
     {
 //TODO
     }
