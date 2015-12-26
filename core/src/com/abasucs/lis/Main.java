@@ -10,7 +10,6 @@ public class Main extends Game
 {
     public static int PLATFORM;
     public IActivityRequestHandler reqH;
-    public Preferences prefData;
 
     public static final int PLATFORM_DESKTOP = 0;
     public static final int PLATFORM_ANDROID = 1;
@@ -28,11 +27,7 @@ public class Main extends Game
     {
         UIHelper.setup();
 
-        prefData = Gdx.app.getPreferences("LifeInSpace_Data");
-
-        prefData.putString("user", "");
-        prefData.putString("password", "");
-        prefData.flush();
+        Settings.setup();
 
         setScreen(new MainMenuScreen(this));
 

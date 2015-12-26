@@ -128,6 +128,7 @@ public class MainMenuScreen extends InputListener implements Screen
         }
         else if (name.equals("settings") && openSettings.isChecked())
         {
+            game.setScreen(new SettingsScreen(game));
         }
         else if (name.equals("credits") && openCredits.isChecked())
         {
@@ -171,7 +172,7 @@ public class MainMenuScreen extends InputListener implements Screen
         table.row();
         table.add(openSettings).width(unitWidth * 7f).height(unitHeight * 1f);
         table.row();
-        table.add(emptyLabel).width(unitWidth*10).height(unitHeight * 2.8f);
+        table.add(emptyLabel).width(unitWidth*10).height(unitHeight * 3.6f);
         table.row();
         table.add(openCredits).width(unitWidth * 3f).height(unitHeight * 1f).align(Align.right);
         table.row();

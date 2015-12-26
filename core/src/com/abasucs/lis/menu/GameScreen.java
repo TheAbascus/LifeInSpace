@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -28,13 +29,16 @@ public class GameScreen implements Screen
     Viewport viewport;
     float Gwidth, Gheight;
 
+    Texture back_1;
+
 
     public GameScreen(Main instance, Level l)
     {
         game = instance;
 
         batch = new SpriteBatch();
-       level = l;
+        back_1 = new Texture("menu/back_1.png");
+        level = l;
     }
 
     @Override
@@ -49,6 +53,7 @@ public class GameScreen implements Screen
         stage.act(delta);
         batch.begin();
         level.render(delta, cam);
+        batch.draw(back_1, 500, 500, 100, 100); //DEBUG
         stage.draw();
         batch.end();
     }
@@ -77,10 +82,15 @@ public class GameScreen implements Screen
     @Override
     public void show()
     {
-        cam = new OrthographicCamera(Constants.WORLDX, Constants.WORLDY);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        cam = new OrthographicCamera(Constants.WORLDX, Constants.WORLDX * (h / w));
         viewport = new ScreenViewport(cam);
+        cam.position.set(cam.viewportWidth, cam.viewportHeight, 0);
         cam.update();
-        cam.position.set(cam.viewportWidth, cam.viewportHeight, 500);
+
+        viewport = new ScreenViewport(cam);
         batch.setProjectionMatrix(cam.combined);
     }
 
