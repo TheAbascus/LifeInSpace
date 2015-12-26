@@ -1,0 +1,30 @@
+Tutorial 2//Name
++wood 10//availibleRes
++plasma 10//availibleRes
++biomatter 10//availibleRes
+-plasma 50//quest
+{//planet
+500//x
+500//y
+0//pos of rocket
+[//landform
+IRON_MOUNTAIN//Type
+80//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+
+[//landform
+IRON_MOUNTAIN//Type
+260//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+
+[//landform
+PLASMA_SPRING//Type
+170//pos of landform
+700//maxRes
+650//currentRes
+]//end of landform
+}//end of planet

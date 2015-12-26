@@ -3,11 +3,11 @@ package com.abasucs.lis.game.Landforms;
 /**
  * Created by Abascus on 25.12.2015.
  */
-public class Wastelands extends  Landform
+public class Wastelands extends Landform
 {
-    public Wastelands(Type t, int p, int maxR, int currentR)
+    public Wastelands(int p)
     {
-        super(t, p, maxR, currentR);
+        super(Type.WASTELANDS, p,0,0);
     }
 
     @Override

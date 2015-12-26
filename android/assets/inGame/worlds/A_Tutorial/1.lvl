@@ -1,0 +1,15 @@
+Tutorial 1//Name
++plasma 30//availibleRes
++biomatter 10//availibleRes
+-wood 20//quest
+{//planet
+500//x
+500//y
+300//pos of rocket
+[//landform
+FOREST//Type
+30//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+}//end of planet

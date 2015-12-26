@@ -10,14 +10,29 @@ public abstract class Landform
     public Landform(Type t, int p, int maxR, int currentR)
     {
         type = t;
-        pos = p%360;
+        pos = p % 360;
         maxRes = maxR;
         currentRes = currentR;
     }
 
     public abstract void render(float delta);
+
     public abstract boolean onClick();
 
+    public static Landform getLandform(String t, int p, int maxR, int currentR)
+    {
+        switch (Type.valueOf(t))
+        {
+            case WASTELANDS:
+                return new Wastelands(p);
+            case FOREST:
+                return new Forest(p, maxR, currentR);
+            //TODO add others
+
+
+        }
+        return new Wastelands(p);
+    }
 
 
     public enum Type

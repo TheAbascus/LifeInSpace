@@ -11,5 +11,6 @@ public final class Constants
 
     public static final String[] resources = {"wood", "iron", "silicon", "gold", "meat", "wheat", "biomatter", "plasma"};
 
+    public static final String levelPath = "inGame/worlds/";
     public static final boolean DEBUG = true;
 }
