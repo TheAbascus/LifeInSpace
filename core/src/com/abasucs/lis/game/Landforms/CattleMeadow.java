@@ -5,19 +5,18 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Created by Abascus on 26.12.2015.
+ * Created by Abascus on 25.12.2015.
  */
-public class PlasmaSpring extends Landform
+public class CattleMeadow extends Landform
 {
-    public PlasmaSpring(int p, int maxR, int currentR)
+    public CattleMeadow(int p, int maxR, int currentR)
     {
-        super(Type.PLASMA_SPRING, p, maxR, currentR);
+        super(Type.CATTLE_MEADOW, p, maxR, currentR);
     }
-
     @Override
     public void render(float delta, Matrix4 projMatrix)
     {
-
+//TODO
     }
 
     @Override

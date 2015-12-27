@@ -1,6 +1,8 @@
 package com.abasucs.lis.game.Landforms;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class Landform
 {
@@ -17,7 +19,9 @@ public abstract class Landform
         currentRes = currentR;
     }
 
-    public abstract void render(float delta, Camera camera);
+    public abstract void render(float delta, Matrix4 projMatrix);
+
+    public abstract void construct(World world, float pX, float pY);
 
     public abstract boolean onClick();
 
@@ -31,6 +35,8 @@ public abstract class Landform
                 return new Forest(p, maxR, currentR);
             case IRON_MOUNTAIN:
                 return new IronMontain(p, maxR, currentR);
+            case CATTLE_MEADOW:
+                return new CattleMeadow(p, maxR, currentR);
             //TODO add others
 
 
@@ -45,10 +51,10 @@ public abstract class Landform
         FOREST,
         IRON_MOUNTAIN,
         GOLD_MOUNTAIN,
+        CATTLE_MEADOW,
         DESERT,
         MEADOW,
         CORNFIELD,
-        CATTLE_MEADOW,
         PLASMA_SPRING
     }
 }

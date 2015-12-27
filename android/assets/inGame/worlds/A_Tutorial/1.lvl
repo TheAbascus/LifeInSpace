@@ -4,11 +4,11 @@ Tutorial 1//Name
 -wood 20//quest
 {//planet
 500//x
-500//y
-300//pos of rocket
+300//y
+150//pos of rocket
 [//landform
 FOREST//Type
-30//pos of landform
+60//pos of landform
 20//maxRes
 20//currentRes
 ]//end of landform

@@ -30,8 +30,7 @@ public class MainMenuScreen extends InputListener implements Screen
     Viewport viewport;
     float Gwidth, Gheight;
 
-    Texture back_1, back_2, back_3;
-    float timer_1,timer_2,timer_3;
+
 
 
     Label emptyLabel;
@@ -47,43 +46,21 @@ public class MainMenuScreen extends InputListener implements Screen
         game = instance;
 
         batch = new SpriteBatch();
-        back_1 = new Texture("menu/back_1.png");
-        back_2 = new Texture("menu/back_2.png");
-        back_3 = new Texture("menu/back_3.png");
+
     }
 
-    float mult = 1.8f;
     @Override
     public void render(float delta)
     {
         Gwidth = stage.getWidth();
         Gheight = stage.getHeight();
 
-        timer_1+=delta;
-        timer_2+=delta;
-        timer_3+=delta;
-
-        timer_1=timer_1%16;
-        timer_2=timer_2%20;
-        timer_3=timer_3%24;
-
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         batch.begin();
 
-
-        batch.draw(back_1, timer_1*(Gwidth/ 16)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_2, timer_2*(Gwidth/20)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_3, timer_3*(Gwidth/24)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
-        
-        batch.draw(back_1, timer_1*(Gwidth/ 16)-Gwidth, -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_2, timer_2*(Gwidth/20)-Gwidth, -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_3, timer_3*(Gwidth/24)-Gwidth, -Gheight,Gwidth,Gheight*mult);
-        
-        batch.draw(back_1, timer_1*(Gwidth/ 16), -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_2, timer_2*(Gwidth/20), -Gheight,Gwidth,Gheight*mult);
-        batch.draw(back_3, timer_3*(Gwidth/24), -Gheight,Gwidth,Gheight*mult);
+        UIHelper.renderStarField(delta, batch, Gwidth, Gheight);
 
         stage.draw();
         batch.end();

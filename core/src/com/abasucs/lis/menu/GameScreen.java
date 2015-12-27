@@ -3,15 +3,16 @@ package com.abasucs.lis.menu;
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
 import com.abasucs.lis.game.Level;
-import com.abasucs.lis.game.LevelIO;
-import com.abasucs.lis.game.SolarSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -31,6 +32,8 @@ public class GameScreen implements Screen
 
     Texture back_1;
 
+    Label FPS;
+
 
     public GameScreen(Main instance, Level l)
     {
@@ -46,14 +49,15 @@ public class GameScreen implements Screen
     {
         Gwidth = stage.getWidth();
         Gheight = stage.getHeight();
+        FPS.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         batch.begin();
-        level.render(delta, cam);
-        batch.draw(back_1, 500, 500, 100, 100); //DEBUG
+        level.render(delta, cam.combined);
+        batch.draw(back_1, 100, 100, 100, 100); //DEBUG
         stage.draw();
         batch.end();
     }
@@ -72,11 +76,14 @@ public class GameScreen implements Screen
         Gwidth = stage.getWidth();
         Gheight = stage.getHeight();
     }
+
     public void addUI()
     {
         float unitWidth = stage.getWidth() / 10;
         float unitHeight = stage.getHeight() / 10;
-
+        FPS = new Label("FPS: 0", UIHelper.getLStyle(38));
+        FPS.setAlignment(Align.bottomLeft);
+        stage.addActor(FPS);
     }
 
     @Override

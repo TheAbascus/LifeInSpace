@@ -3,6 +3,7 @@ package com.abasucs.lis.game;
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.game.Landforms.Landform;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -30,17 +31,23 @@ public class Planet
         circle.setRadius(Constants.PLANETRADIUS);
         groundBody.createFixture(circle, 0.0f);
         circle.dispose();
+
+        for (int i = 0; i < landforms.length; i++)
+        {
+            landforms[i].construct(world, x, y);
+        }
+
     }
 
 
-    public void render(float delta, Camera camera)
+    public void render(float delta, Matrix4 projMatrix)
     {
 
         if (landforms != null)
         {
             for (int i = 0; i < landforms.length; i++)
             {
-                landforms[i].render(delta, camera);
+                landforms[i].render(delta, projMatrix);
             }
         }
     }

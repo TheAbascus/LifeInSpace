@@ -10,6 +10,10 @@ public final class Constants
     public static final int POSITION_ITERATIONS = 2;
 
     public static final String[] RESOURCES = {"wood", "iron", "silicon", "gold", "meat", "wheat", "biomatter", "plasma"};
+    public static final float LANDFORMSIZE = 35;
+    public static final float FORESTHEIGHT = 25;
+    public static final float MOUNTAINHEIGHT = 30;
+
     public static final float PLANETRADIUS = 100;
     public static final int WORLDX = 1000;
     public static final int WORLDY = 1000;

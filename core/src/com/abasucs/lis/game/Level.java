@@ -1,7 +1,7 @@
 package com.abasucs.lis.game;
 
 import com.abasucs.lis.Constants;
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -33,7 +33,7 @@ public class Level
         debugRenderer = new Box2DDebugRenderer();
     }
 
-    public void render(float delta, Camera camera)
+    public void render(float delta, Matrix4 projMatrix)
     {
         float frameTime = Math.min(delta, 0.25f);
         tickAccumulator += frameTime;
@@ -47,11 +47,11 @@ public class Level
         {
             for (int i = 0; i < planets.length; i++)
             {
-                planets[i].render(delta, camera);
+                planets[i].render(delta, projMatrix);
             }
         }
 
-        debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, projMatrix);
     }
 
     public void addQuest(String id, int amount)

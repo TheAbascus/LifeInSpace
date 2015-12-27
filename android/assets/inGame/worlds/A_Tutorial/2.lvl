@@ -5,25 +5,25 @@ Tutorial 2//Name
 -plasma 50//quest
 {//planet
 500//x
-500//y
-0//pos of rocket
+300//y
+120//pos of rocket
 [//landform
 IRON_MOUNTAIN//Type
-80//pos of landform
+10//pos of landform
 20//maxRes
 20//currentRes
 ]//end of landform
 
 [//landform
 IRON_MOUNTAIN//Type
-260//pos of landform
+190//pos of landform
 20//maxRes
 20//currentRes
 ]//end of landform
 
 [//landform
 PLASMA_SPRING//Type
-170//pos of landform
+280//pos of landform
 700//maxRes
 650//currentRes
 ]//end of landform

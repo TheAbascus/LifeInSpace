@@ -6,13 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -48,6 +46,7 @@ public class SettingsScreen extends InputListener implements Screen
     }
 
     float mult = 1.8f;
+
     @Override
     public void render(float delta)
     {
@@ -76,13 +75,7 @@ public class SettingsScreen extends InputListener implements Screen
 
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
     {
-        String name = event.getListenerActor().getName();
-
-        if (name.equals("save") || name.equals("cancel"))
-        {
             return true;
-        }
-        return false;
     }
 
     public void touchUp(InputEvent event, float x, float y, int pointer, int button)
@@ -109,8 +102,14 @@ public class SettingsScreen extends InputListener implements Screen
         table.center();
 
         emptyLabel = new Label("", UIHelper.uiSkin);
-        emptyLabel.setWidth(unitWidth*3f);
-        saveButton = UIHelper.genButton("Save", "save", unitWidth * 3f, unitHeight, unitWidth*7, 0, 38, false);
+        emptyLabel.setWidth(unitWidth * 3f);
+
+        vSync = new CheckBox("Enable vSync", UIHelper.getCBStyle(28));
+        vSync.setName("vSync");
+        fullscreen = new CheckBox("Enable Fullscreen", UIHelper.getCBStyle(28));
+        fullscreen.setName("fullscreen");
+
+        saveButton = UIHelper.genButton("Save", "save", unitWidth * 3f, unitHeight, unitWidth * 7, 0, 38, false);
         saveButton.align(Align.right);
         saveButton.addListener(this);
         cancelButton = UIHelper.genButton("Cancel", "cancel", unitWidth * 3f, unitHeight, 0, 0, 38, false);
@@ -119,7 +118,9 @@ public class SettingsScreen extends InputListener implements Screen
 
         table.add(emptyLabel).width(unitWidth * 10).height(unitHeight * 2.8f);
         table.row();
-        //table.add(saveButton).width(unitWidth * 3f).height(unitHeight * 1f).align(Align.right);
+        table.add(vSync).width(unitWidth * 3f).height(unitHeight * 1f);
+        table.row();
+        table.add(fullscreen).width(unitWidth * 3f).height(unitHeight * 1f);
         table.row();
 
         table.setPosition(unitWidth * 5f, unitHeight * 5f);

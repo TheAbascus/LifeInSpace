@@ -1,6 +1,8 @@
 package com.abasucs.lis.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -30,6 +32,10 @@ public class UIHelper {
 	public static LabelStyle LStyle;
 	public static Map<String,BitmapFont> font = new HashMap<String, BitmapFont>();
 
+	static Texture back_1, back_2, back_3;
+	static float timer_1,timer_2,timer_3;
+	static float mult = 1.8f;
+
 	public static Drawable invis;
 
 	public static void setup()
@@ -45,6 +51,34 @@ public class UIHelper {
 		invisTBStyle = new TextButtonStyle(TBStyle);
 		invisTBStyle.up = invis;
 		invisTBStyle.down = invis;
+
+		back_1 = new Texture("menu/back_1.png");
+		back_2 = new Texture("menu/back_2.png");
+		back_3 = new Texture("menu/back_3.png");
+	}
+
+	public static void renderStarField(float delta, Batch batch, float Gwidth, float Gheight)
+	{
+		timer_1+=delta;
+		timer_2+=delta;
+		timer_3+=delta;
+
+		timer_1=timer_1%16;
+		timer_2=timer_2%20;
+		timer_3=timer_3%24;
+
+		batch.draw(back_1, timer_1*(Gwidth/ 16)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_2, timer_2*(Gwidth/20)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_3, timer_3*(Gwidth/24)-2*Gwidth, -Gheight,Gwidth,Gheight*mult);
+
+		batch.draw(back_1, timer_1*(Gwidth/ 16)-Gwidth, -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_2, timer_2*(Gwidth/20)-Gwidth, -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_3, timer_3*(Gwidth/24)-Gwidth, -Gheight,Gwidth,Gheight*mult);
+
+		batch.draw(back_1, timer_1*(Gwidth/ 16), -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_2, timer_2*(Gwidth/20), -Gheight,Gwidth,Gheight*mult);
+		batch.draw(back_3, timer_3*(Gwidth/24), -Gheight,Gwidth,Gheight*mult);
+
 	}
 
 

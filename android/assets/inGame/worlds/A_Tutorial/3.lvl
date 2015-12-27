@@ -1,0 +1,45 @@
+Tutorial 3//Name
++plasma 20//availibleRes
++biomatter 50//availibleRes
+-wood 20//quest
+-iron 10//quest
+-meat 5//quest
+{//planet
+500//x
+300//y
+30//pos of rocket
+[//landform
+FOREST//Type
+110//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+
+[//landform
+IRON_MOUNTAIN//Type
+170//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+
+[//landform
+FOREST//Type
+220//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+
+[//landform
+CATTLE_MEADOW//Type
+290//pos of landform
+10//maxRes
+10//currentRes
+]//end of landform
+
+[//landform
+PLASMA_SPRING//Type
+330//pos of landform
+700//maxRes
+650//currentRes
+]//end of landform
+}//end of planet
