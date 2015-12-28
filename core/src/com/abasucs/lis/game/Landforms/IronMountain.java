@@ -12,11 +12,15 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Created by Abascus on 26.12.2015.
  */
-public class IronMontain extends Landform
+public class IronMountain extends Landform
 {
-    public IronMontain(int p, int maxR, int currentR)
+    public IronMountain(int p, int maxR, int currentR)
     {
-        super(Type.IRON_MOUNTAIN, p, maxR, currentR);
+        this(Type.IRON_MOUNTAIN, p, maxR, currentR);
+    }
+    public IronMountain(Type t, int p, int maxR, int currentR)
+    {
+        super(t, p, maxR, currentR);
     }
 
     @Override
@@ -30,8 +34,6 @@ public class IronMontain extends Landform
     {
         float x = (float) (pX + Constants.PLANETRADIUS * Math.cos(Math.toRadians(pos)));
         float y = (float) (pY + Constants.PLANETRADIUS * Math.sin(Math.toRadians(pos)));
-
-        System.out.println(x + "x " + y + "y");
 
         BodyDef bottom = new BodyDef();
         bottom.position.set(new Vector2(x, y));

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.Arrays;
@@ -17,7 +18,9 @@ import java.util.Arrays;
  */
 public class Planet
 {
-    public float x, y, rocketPos;
+    public float x = 0;
+    public float y = 0;
+    public float rocketPos = 0;
     public Landform[] landforms;
 
     public void construct(World world)
@@ -32,6 +35,20 @@ public class Planet
         groundBody.createFixture(circle, 0.0f);
         circle.dispose();
 
+        float rX = (float) (x + (Constants.PLANETRADIUS+Constants.ROCKETHEIGHT/2) * Math.cos(Math.toRadians(rocketPos)));
+        float rY = (float) (y + (Constants.PLANETRADIUS+Constants.ROCKETHEIGHT/2) * Math.sin(Math.toRadians(rocketPos)));
+
+
+        BodyDef rocket = new BodyDef();
+        rocket.position.set(new Vector2(rX, rY));
+        Body rocketBody = world.createBody(rocket);
+        PolygonShape rocketBox = new PolygonShape();
+        rocketBox.setAsBox(Constants.ROCKETHEIGHT, Constants.ROCKETSIZE);
+        rocketBody.createFixture(rocketBox, 0.0f);
+        rocketBody.setTransform(rX, rY, (float) Math.toRadians(rocketPos));
+        rocketBody.setFixedRotation(true);
+        rocketBox.dispose();
+
         for (int i = 0; i < landforms.length; i++)
         {
             landforms[i].construct(world, x, y);
@@ -39,10 +56,8 @@ public class Planet
 
     }
 
-
     public void render(float delta, Matrix4 projMatrix)
     {
-
         if (landforms != null)
         {
             for (int i = 0; i < landforms.length; i++)

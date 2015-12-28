@@ -21,7 +21,7 @@ public class LevelIO
         }
         Array.ArrayIterator<String> iterator = new Array.ArrayIterator(new Array(data));
 
-        int line = 0;
+        int line = 1;
         Level level = new Level();
         level.name = iterator.next();
 
@@ -46,7 +46,7 @@ public class LevelIO
                     current = iterator.next();
                     if (current.contentEquals("["))
                     {
-                        line += 3;
+                        line += 4;
                         p.addLandform(Landform.getLandform(iterator.next(), Integer.parseInt(iterator.next()), Integer.parseInt(iterator.next()), Integer.parseInt(iterator.next())));
                         line++;
                         if (!iterator.next().contentEquals("]"))
@@ -57,12 +57,13 @@ public class LevelIO
                     else if (current.contentEquals("}"))
                     {
                         level.addPlanet(p);
+                        break;
                     }
                     else if(current.matches("[\r\n]+"))
                     {}
                     else
                     {
-                        throw new Exception("Defect Planet on line " + line + " of " + path);
+                        throw new Exception("Defect Planet on line " + line + " of " + path+":  "+current);
                     }
                 }
 

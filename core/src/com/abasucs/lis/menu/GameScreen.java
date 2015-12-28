@@ -2,6 +2,7 @@ package com.abasucs.lis.menu;
 
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
+import com.abasucs.lis.Util;
 import com.abasucs.lis.game.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -37,6 +38,7 @@ public class GameScreen implements Screen
 
     public GameScreen(Main instance, Level l)
     {
+        System.out.println(Util.pythagoras(Constants.PLANETRADIUS * Math.sin(Math.toRadians(Constants.LANDFORMSIZEDEG)), Constants.PLANETRADIUS * Math.sin(Math.toRadians(0))));
         game = instance;
 
         batch = new SpriteBatch();

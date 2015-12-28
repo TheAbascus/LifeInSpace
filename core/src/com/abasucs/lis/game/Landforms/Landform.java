@@ -1,6 +1,5 @@
 package com.abasucs.lis.game.Landforms;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -34,12 +33,17 @@ public abstract class Landform
             case FOREST:
                 return new Forest(p, maxR, currentR);
             case IRON_MOUNTAIN:
-                return new IronMontain(p, maxR, currentR);
+                return new IronMountain(p, maxR, currentR);
+            case GOLD_MOUNTAIN:
+                return new GoldMountain(p, maxR, currentR);
+            case MEADOW:
+                return new Meadow(p, maxR, currentR);
+            case CORNFIELD:
+                return new Cornfield(p, maxR, currentR);
             case CATTLE_MEADOW:
                 return new CattleMeadow(p, maxR, currentR);
-            //TODO add others
-
-
+            case DESERT:
+                return new Desert(p, maxR, currentR);
         }
         return new Wastelands(p);
     }
@@ -51,10 +55,11 @@ public abstract class Landform
         FOREST,
         IRON_MOUNTAIN,
         GOLD_MOUNTAIN,
-        CATTLE_MEADOW,
-        DESERT,
         MEADOW,
         CORNFIELD,
-        PLASMA_SPRING
+        CATTLE_MEADOW,
+        DESERT,
+        PLASMA_SPRING,
+        LAKE
     }
 }
