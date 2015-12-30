@@ -32,6 +32,11 @@ public class IronMountain extends Landform
     @Override
     public void construct(World world, float pX, float pY)
     {
+        construct(world,pX,pY,"IRONMOUNTAIN");
+    }
+
+    public void construct(World world, float pX, float pY, String s)
+    {
         float x = (float) (pX + Constants.PLANETRADIUS * Math.cos(Math.toRadians(pos)));
         float y = (float) (pY + Constants.PLANETRADIUS * Math.sin(Math.toRadians(pos)));
 
@@ -43,6 +48,7 @@ public class IronMountain extends Landform
         bottomBody.createFixture(bottomBox, 0.0f);
         bottomBody.setTransform(x, y, (float) Math.toRadians(pos));
         bottomBody.setFixedRotation(true);
+        bottomBody.setUserData(s+"_BOTTOM");
         bottomBox.dispose();
 
         x = (float) (pX + (Constants.PLANETRADIUS + Constants.MOUNTAINHEIGHT * 3 / 2) * Math.cos(Math.toRadians(pos)));
@@ -56,6 +62,7 @@ public class IronMountain extends Landform
         topBody.createFixture(topBox, 0.0f);
         topBody.setTransform(x, y, (float) Math.toRadians(pos));
         topBody.setFixedRotation(true);
+        topBody.setUserData(s+"_TOP");
         topBox.dispose();
 
 

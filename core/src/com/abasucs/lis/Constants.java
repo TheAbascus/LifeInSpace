@@ -16,6 +16,14 @@ public final class Constants
     public static final float ROCKETHEIGHT = 25;
     public static final float ROCKETSIZE = 7;
     public static final float PLANETRADIUS = 100;
+    public static final float PLANETGRAV = 20;
+    public static final double DEGSIZE = Constants.PLANETRADIUS * Math.sin(Math.toRadians(1));
+
+    public static final float PLAYERHEIGHT = 10;
+    public static final float PLAYERSIZE = 5;
+    public static final float PLAYERSPEED = 30;
+    public static final float PLAYERJETSPEED = 25;
+    public static final float PLAYERMAXJUMP = 50;
 
     public static final float LANDFORMSIZEDEG = 15;
     public static final float LANDFORMSIZE = 35;

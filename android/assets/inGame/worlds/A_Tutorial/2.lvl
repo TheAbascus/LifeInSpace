@@ -1,4 +1,6 @@
 Tutorial 2//Name
+1//playerPlanet
+100//playerPos
 +wood 10//availibleRes
 +plasma 10//availibleRes
 +biomatter 10//availibleRes

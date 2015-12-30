@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /**
  * Created by Jannik on 23.12.2015.
  */
-public class GameScreen implements Screen
+public class GameScreen extends InputListener implements Screen
 {
     Main game;
     Stage stage;
@@ -38,11 +38,10 @@ public class GameScreen implements Screen
 
     public GameScreen(Main instance, Level l)
     {
-        System.out.println(Util.pythagoras(Constants.PLANETRADIUS * Math.sin(Math.toRadians(Constants.LANDFORMSIZEDEG)), Constants.PLANETRADIUS * Math.sin(Math.toRadians(0))));
         game = instance;
 
         batch = new SpriteBatch();
-        back_1 = new Texture("menu/back_1.png");
+        back_1 = new Texture("menu/badlogic.jpg");
         level = l;
     }
 
@@ -56,12 +55,15 @@ public class GameScreen implements Screen
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act(delta);
         batch.begin();
-        level.render(delta, cam.combined);
-        batch.draw(back_1, 100, 100, 100, 100); //DEBUG
-        stage.draw();
+        UIHelper.renderStarField(delta, batch, Gwidth, Gheight);
+        level.render(delta, batch, cam.combined);
         batch.end();
+
+        stage.draw();
+
     }
 
     @Override
@@ -94,12 +96,12 @@ public class GameScreen implements Screen
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
-        cam = new OrthographicCamera(Constants.WORLDX, Constants.WORLDX * (h / w));
+        cam = new OrthographicCamera(Constants.WORLDX, Constants.WORLDY);
         viewport = new ScreenViewport(cam);
-        cam.position.set(cam.viewportWidth, cam.viewportHeight, 0);
         cam.update();
+        cam.position.set(cam.viewportWidth, cam.viewportHeight, 0);
 
-        viewport = new ScreenViewport(cam);
+
         batch.setProjectionMatrix(cam.combined);
     }
 

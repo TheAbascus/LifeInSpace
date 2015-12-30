@@ -17,4 +17,10 @@ public class GoldMountain extends IronMountain
     {
         super(Type.GOLD_MOUNTAIN, p, maxR, currentR);
     }
+
+    @Override
+    public void construct(World world, float pX, float pY)
+    {
+        construct(world, pX, pY, "GOLDMOUNTAIN");
+    }
 }

@@ -21,9 +21,12 @@ public class LevelIO
         }
         Array.ArrayIterator<String> iterator = new Array.ArrayIterator(new Array(data));
 
-        int line = 1;
+        int line = 3;
         Level level = new Level();
         level.name = iterator.next();
+        level.playerPlanet = Integer.parseInt(iterator.next());
+        level.player = new Player();
+        level.player.pos = Integer.parseInt(iterator.next());
 
         String current;
 
@@ -86,6 +89,7 @@ public class LevelIO
             }
         }
 
+level.postLoad();
         return level;
     }
 
