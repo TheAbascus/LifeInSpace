@@ -1,6 +1,7 @@
 package com.abasucs.lis.game;
 
 import com.abasucs.lis.Constants;
+import com.abasucs.lis.Util;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -33,8 +34,8 @@ public class Player
         playerBox.setAsBox(Constants.PLAYERHEIGHT, Constants.PLAYERSIZE);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = playerBox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
+        fixtureDef.density = 0.0f;
+        fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.6f;
         Fixture fixture = playerBody.createFixture(fixtureDef);
         fixture.setUserData("PLAYER");
@@ -43,6 +44,12 @@ public class Player
         playerBody.setUserData("PLAYER");
         playerBox.dispose();
 
+    }
+
+    public void enterPlanet(Vector2 point, float pX, float pY)
+    {
+        pos = (float)Math.toDegrees(Math.atan2(playerBody.getPosition().y - pY,playerBody.getPosition().x - pX));
+        jumpHeight = Constants.PLAYERMAXJUMP;
     }
 
     public void updatePos(float delta, float pX, float pY, boolean isFlying)
@@ -57,7 +64,8 @@ public class Player
         }
         float rX = (float) (pX + (Constants.PLANETRADIUS + Constants.PLAYERHEIGHT / 2+jumpHeight) * Math.cos(Math.toRadians(pos)));
         float rY = (float) (pY + (Constants.PLANETRADIUS + Constants.PLAYERHEIGHT / 2+jumpHeight) * Math.sin(Math.toRadians(pos)));
-        Vector2 vel = new Vector2(rX,rY).sub(playerBody.getPosition()).nor().scl(Constants.PLAYERSPEED*1000);
+
+        Vector2 vel = new Vector2(rX,rY).sub(playerBody.getPosition()).nor().scl((float)(Constants.PLAYERSPEED*Constants.DEGSIZE*2));
         if((int)rX==(int)playerBody.getPosition().x&&(int)rY==(int)playerBody.getPosition().y)
         {
             vel = new Vector2(0,0);

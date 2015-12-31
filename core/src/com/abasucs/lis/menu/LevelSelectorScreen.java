@@ -132,7 +132,7 @@ public class LevelSelectorScreen extends InputListener implements Screen
             FileHandle[] dirs = handle.list();
             for (int i = 0; i < dirs.length; i++)
             {
-                Label l = new Label(dirs[i].name().substring(2), UIHelper.getLStyle(38));
+                Label l = new Label(dirs[i].name().substring(2), UIHelper.getLStyle(38, 0));
                 table.add(l).width(unitWidth / 3).height(unitHeight);
                 table.row();
                 Realm r = new Realm(dirs[i].name(), l);

@@ -2,7 +2,6 @@ package com.abasucs.lis.game;
 
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.game.Landforms.Landform;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Matrix4;
@@ -25,9 +24,11 @@ public class Planet
     public float y = 0;
     public float rocketPos = 0;
     public Landform[] landforms;
+    public int planetID;
     Body planetBody;
     Body rocketBody;
     Texture tex;
+
 
     public Planet()
     {
@@ -44,8 +45,20 @@ public class Planet
         CircleShape circle = new CircleShape();
         circle.setRadius(Constants.PLANETRADIUS);
         Fixture fixture = planetBody.createFixture(circle, 0.0f);
-        fixture.setUserData("PLANET");
+        fixture.setUserData("PLANET_" + planetID);
         circle.dispose();
+
+        BodyDef hitbox = new BodyDef();
+        hitbox.position.set(new Vector2(x, y));
+
+        planetBody = world.createBody(hitbox);
+
+        CircleShape circleH = new CircleShape();
+        circleH.setRadius(Constants.PLANETRADIUS + Constants.PLAYERMAXJUMP);
+        Fixture fixtureH = planetBody.createFixture(circleH, 0.0f);
+        fixtureH.setUserData("PH_"+planetID);
+        fixtureH.setSensor(true);
+        circleH.dispose();
 
         if(rocketPos!=-1)
         {
@@ -58,9 +71,11 @@ public class Planet
             rocketBody = world.createBody(rocket);
             PolygonShape rocketBox = new PolygonShape();
             rocketBox.setAsBox(Constants.ROCKETHEIGHT, Constants.ROCKETSIZE);
-            rocketBody.createFixture(rocketBox, 0.0f);
+            Fixture rF = rocketBody.createFixture(rocketBox, 0.0f);
+            rF.setUserData("ROCKET");
             rocketBody.setTransform(rX, rY, (float) Math.toRadians(rocketPos));
             rocketBody.setFixedRotation(true);
+            rocketBody.setUserData("ROCKET");
             rocketBox.dispose();
         }
 

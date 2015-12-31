@@ -6,16 +6,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import java.util.Arrays;
@@ -33,6 +28,8 @@ public class Level implements ContactListener
     public Map<String, Integer> quest = new HashMap<String, Integer>();
     public Player player;
     public int playerPlanet;
+    public int timeLeft = 360;
+    public float timer;
 
     com.badlogic.gdx.physics.box2d.World world;
     Box2DDebugRenderer debugRenderer;
@@ -58,7 +55,28 @@ public class Level implements ContactListener
     @Override
     public void beginContact(Contact contact)
     {
-        System.out.println("A: " + contact.getFixtureA().getUserData() + " B: " + contact.getFixtureB().getUserData());
+        String a = (String) contact.getFixtureA().getUserData();
+        String b = (String) contact.getFixtureB().getUserData();
+        if (a.contentEquals("PLAYER") || b.contentEquals("PLAYER"))
+        {
+            String current = a;
+            if(a.contentEquals("PLAYER"))
+            {
+             current = b;
+            }
+            //System.out.println(current);
+            if (current.contains("PH_"))
+            {
+                int i = Integer.parseInt(current.split("_")[1]);
+                if(playerPlanet!=i)
+                {
+                    playerPlanet = i;
+                    player.jumpHeight=Constants.PLAYERMAXJUMP;
+                    player.enterPlanet(contact.getWorldManifold().getPoints()[0], planets[playerPlanet - 1].x, planets[playerPlanet - 1].y);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -83,24 +101,12 @@ public class Level implements ContactListener
 
     public void tick(float delta)
     {
-        if (Gdx.input.isKeyPressed(Input.Keys.A))
+        timer+=delta;
+        if(timer>=1)
         {
-            player.pos+=delta*Constants.PLAYERSPEED;
+            timer-=1;
+            timeLeft-=1;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D))
-        {
-            player.pos-=delta*Constants.PLAYERSPEED;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)&&player.jumpHeight<Constants.PLAYERMAXJUMP)
-        {
-            player.jumpHeight += delta*Constants.PLAYERJETSPEED;
-        }
-        player.updatePos(delta, planets[playerPlanet - 1].x, planets[playerPlanet - 1].y,Gdx.input.isKeyPressed(Input.Keys.SPACE));
-    }
-
-    public void render(float delta, Batch batch, Matrix4 projMatrix)
-    {
-        tick(delta);
         float frameTime = Math.min(delta, 0.25f);
         tickAccumulator += frameTime;
         while (tickAccumulator >= Constants.TIME_STEP)
@@ -108,7 +114,27 @@ public class Level implements ContactListener
             world.step(Constants.TIME_STEP, Constants.VELOCITY_ITERATIONS, Constants.POSITION_ITERATIONS);
             tickAccumulator -= Constants.TIME_STEP;
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.A))
+        {
+            player.pos += delta * Constants.PLAYERSPEED;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D))
+        {
+            player.pos -= delta * Constants.PLAYERSPEED;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && player.jumpHeight < Constants.PLAYERMAXJUMP)
+        {
+            player.jumpHeight += delta * Constants.PLAYERJETSPEED;
+        }
+        player.updatePos(delta, planets[playerPlanet - 1].x, planets[playerPlanet - 1].y, Gdx.input.isKeyPressed(Input.Keys.SPACE));
+    }
 
+    public void render(float delta, boolean running, Batch batch, Matrix4 projMatrix)
+    {
+        if(running)
+        {
+            tick(delta);
+        }
         if (planets != null)
         {
             for (int i = 0; i < planets.length; i++)
@@ -138,7 +164,6 @@ public class Level implements ContactListener
 
     public void addPlanet(Planet p)
     {
-        p.construct(world);
         if (planets == null)
         {
             planets = new Planet[1];
@@ -147,6 +172,8 @@ public class Level implements ContactListener
         {
             planets = Arrays.copyOf(planets, planets.length + 1);
         }
+        p.planetID = planets.length;
+        p.construct(world);
         planets[planets.length - 1] = p;
 
 

@@ -1,0 +1,28 @@
+Tutorial 4//Name
+1//playerPlanet
+120//playerPos
++plasma 30//availibleRes
++biomatter 10//availibleRes
+-wood 20//quest
+{//planet
+500//x
+100//y
+150//pos of rocket
+[//landform
+FOREST//Type
+60//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+}//end of planet
+{//planet
+450//x
+420//y
+-1//pos of rocket
+[//landform
+FOREST//Type
+60//pos of landform
+20//maxRes
+20//currentRes
+]//end of landform
+}//end of planet

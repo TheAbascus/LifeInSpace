@@ -5,6 +5,7 @@ import com.abasucs.lis.Main;
 import com.abasucs.lis.Util;
 import com.abasucs.lis.game.Level;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -33,7 +36,15 @@ public class GameScreen extends InputListener implements Screen
 
     Texture back_1;
 
+    TextButton titleLabel;
+    Label emptyLabel;
+    TextButton openSettings;
+    TextButton openLevelSelection;
+
     Label FPS;
+    Label timeLeft;
+
+    boolean isRunning = true;
 
 
     public GameScreen(Main instance, Level l)
@@ -51,7 +62,15 @@ public class GameScreen extends InputListener implements Screen
         Gwidth = stage.getWidth();
         Gheight = stage.getHeight();
         FPS.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
+        timeLeft.setText((int)(level.timeLeft/60)+":"+level.timeLeft%60);
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+        {
+            isRunning = !isRunning;
+            stage.clear();
+            addUI();
+
+        }
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -59,8 +78,12 @@ public class GameScreen extends InputListener implements Screen
         stage.act(delta);
         batch.begin();
         UIHelper.renderStarField(delta, batch, Gwidth, Gheight);
-        level.render(delta, batch, cam.combined);
+        level.render(delta,isRunning, batch, cam.combined);
         batch.end();
+        if(!isRunning)
+        {
+            Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+        }
 
         stage.draw();
 
@@ -85,9 +108,43 @@ public class GameScreen extends InputListener implements Screen
     {
         float unitWidth = stage.getWidth() / 10;
         float unitHeight = stage.getHeight() / 10;
-        FPS = new Label("FPS: 0", UIHelper.getLStyle(38));
-        FPS.setAlignment(Align.bottomLeft);
+
+        if(!isRunning)
+        {
+            Table table = new Table();
+            table.center();
+            titleLabel = UIHelper.genButton(level.name, "", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
+            emptyLabel = new Label("", UIHelper.uiSkin);
+            openSettings = UIHelper.genButton("Settings", "settings", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
+            openSettings.addListener(this);
+            openLevelSelection = UIHelper.genButton("Level Selection", "levelSelection", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
+            openLevelSelection.addListener(this);
+
+            table.add(titleLabel).width(unitWidth*5f).height(unitHeight * 0.7f);
+            table.row();
+            table.add(emptyLabel).width(unitWidth).height(unitHeight * 3f);
+            table.row();
+            table.add(openSettings).width(unitWidth * 7f).height(unitHeight * 1f);
+            table.row();
+            table.add(emptyLabel).width(unitWidth*10).height(unitHeight * 1f);
+            table.row();
+            table.add(openLevelSelection).width(unitWidth * 3f).height(unitHeight * 1f);
+            table.row();
+
+            table.setPosition(unitWidth * 5f, unitHeight * 5f);
+            stage.addActor(table);
+        }
+
+
+
+        FPS = new Label("FPS: 0", UIHelper.getLStyle(38, 0));
+FPS.setPosition(0, unitHeight*10, Align.topLeft);
         stage.addActor(FPS);
+
+        timeLeft = new Label("0:00", UIHelper.getLStyle(38, 0));
+timeLeft.setPosition(unitWidth*10, unitHeight*10, Align.topRight);
+        stage.addActor(timeLeft);
+
     }
 
     @Override
