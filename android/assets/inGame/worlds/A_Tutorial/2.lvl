@@ -11,21 +11,21 @@ Tutorial 2//Name
 300//y
 120//pos of rocket
 [//landform
-IRON_MOUNTAIN//Type
+IRONMOUNTAIN//Type
 10//pos of landform
 20//maxRes
 20//currentRes
 ]//end of landform
 
 [//landform
-IRON_MOUNTAIN//Type
+IRONMOUNTAIN//Type
 190//pos of landform
 20//maxRes
 20//currentRes
 ]//end of landform
 
 [//landform
-PLASMA_SPRING//Type
+PLASMASPRING//Type
 280//pos of landform
 700//maxRes
 650//currentRes

@@ -15,12 +15,12 @@ public class GoldMountain extends IronMountain
 {
     public GoldMountain(int p, int maxR, int currentR)
     {
-        super(Type.GOLD_MOUNTAIN, p, maxR, currentR);
+        super(Type.GOLDMOUNTAIN, p, maxR, currentR);
     }
 
     @Override
     public void construct(World world, float pX, float pY)
     {
-        construct(world, pX, pY, "GOLDMOUNTAIN");
+        construct(world, pX, pY);
     }
 }

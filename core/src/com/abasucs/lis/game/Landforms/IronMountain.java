@@ -19,7 +19,7 @@ public class IronMountain extends Landform
 
     public IronMountain(int p, int maxR, int currentR)
     {
-        this(Type.IRON_MOUNTAIN, p, maxR, currentR);
+        this(Type.IRONMOUNTAIN, p, maxR, currentR);
     }
 
     public IronMountain(Type t, int p, int maxR, int currentR)
@@ -36,11 +36,6 @@ public class IronMountain extends Landform
     @Override
     public void construct(World world, float pX, float pY)
     {
-        construct(world, pX, pY, "IRONMOUNTAIN");
-    }
-
-    public void construct(World world, float pX, float pY, String s)
-    {
         float x = (float) (pX + Constants.PLANETRADIUS * Math.cos(Math.toRadians(pos)));
         float y = (float) (pY + Constants.PLANETRADIUS * Math.sin(Math.toRadians(pos)));
 
@@ -50,7 +45,7 @@ public class IronMountain extends Landform
         PolygonShape bottomBox = new PolygonShape();
         bottomBox.setAsBox(Constants.MOUNTAINHEIGHT, Constants.LANDFORMSIZE);
         bottomFixture = bottomBody.createFixture(bottomBox, 0.0f);
-        bottomFixture.setUserData(s + "_BOTTOM");
+        bottomFixture.setUserData(type.toString() + "_BOTTOM");
         bottomBody.setTransform(x, y, (float) Math.toRadians(pos));
         bottomBody.setFixedRotation(true);
         bottomBox.dispose();
@@ -64,7 +59,7 @@ public class IronMountain extends Landform
         PolygonShape topBox = new PolygonShape();
         topBox.setAsBox(Constants.MOUNTAINHEIGHT / 2, Constants.LANDFORMSIZE);
         Fixture topFixture = topBody.createFixture(topBox, 0.0f);
-        topFixture.setUserData(s + "_TOP");
+        topFixture.setUserData(type.toString() + "_TOP");
         topBody.setTransform(x, y, (float) Math.toRadians(pos));
         topBody.setFixedRotation(true);
         topBox.dispose();

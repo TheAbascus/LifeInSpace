@@ -11,18 +11,12 @@ public class CattleMeadow extends Landform
 {
     public CattleMeadow(int p, int maxR, int currentR)
     {
-        super(Type.CATTLE_MEADOW, p, maxR, currentR);
+        super(Type.CATTLEMEADOW, p, maxR, currentR);
     }
     @Override
     public void render(float delta, Matrix4 projMatrix)
     {
 //TODO
-    }
-
-    @Override
-    public void construct(World world, float pX, float pY)
-    {
-
     }
 
     @Override

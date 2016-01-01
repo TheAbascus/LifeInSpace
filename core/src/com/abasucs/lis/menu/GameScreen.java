@@ -2,6 +2,7 @@ package com.abasucs.lis.menu;
 
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
+import com.abasucs.lis.Settings;
 import com.abasucs.lis.game.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -156,11 +157,15 @@ public class GameScreen extends InputListener implements Screen
 
         FPS = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), UIHelper.getLStyle(38, 0));
         FPS.setPosition(0, unitHeight * 10, Align.topLeft);
-        stage.addActor(FPS);
+
         timeLeft = new Label((int) (level.timeLeft / 60) + ":" + level.timeLeft % 60, UIHelper.getLStyle(38, 0));
         timeLeft.setPosition(unitWidth * 10, unitHeight * 10, Align.topRight);
-        if (level.timeLeft != -1)
-        {
+
+        if(Settings.showFPS){
+            stage.addActor(FPS);
+        }
+
+        if (level.timeLeft != -1){
             stage.addActor(timeLeft);
         }
     }

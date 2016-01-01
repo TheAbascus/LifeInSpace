@@ -49,8 +49,10 @@ public class Player
 
     public void enterPlanet(Vector2 point, float pX, float pY)
     {
+        currentLandform="";
         pos = (float)Math.toDegrees(Math.atan2(playerBody.getPosition().y - pY,playerBody.getPosition().x - pX));
         jumpHeight = Constants.PLAYERMAXJUMP;
+
     }
 
     public void updatePos(float delta, float pX, float pY, boolean isFlying)

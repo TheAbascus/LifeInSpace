@@ -92,9 +92,9 @@ public class LevelSelectorScreen extends InputListener implements Screen
     public void touchUp(InputEvent event, float x, float y, int pointer, int button)
     {
         String name = event.getListenerActor().getName();
-        if (name.equals("exit") && exitButton.isChecked())
+        if (name.equals("back") && exitButton.isChecked())
         {
-            Gdx.app.exit();
+            game.setScreen(new MainMenuScreen(game));
         }
         else if(name.split("/").length==2)
         {
@@ -118,11 +118,9 @@ public class LevelSelectorScreen extends InputListener implements Screen
         table.align(Align.top);
 
         emptyLabel = new Label("", UIHelper.uiSkin);
-        exitButton = UIHelper.genButton("X", "exit", unitWidth, unitHeight, 0, 0, 38, false);
+        exitButton = UIHelper.genButton("Back", "back", unitWidth, unitHeight, 0, 0, 38, false);
         exitButton.addListener(this);
 
-        table.add(exitButton).width(unitWidth / 3).height(unitHeight).align(Align.topRight);
-        table.row();
         table.add(emptyLabel).width(unitWidth * 10).height(unitHeight * 0.5f);
         table.row();
 
@@ -156,6 +154,8 @@ public class LevelSelectorScreen extends InputListener implements Screen
 
         table.setPosition(unitWidth * 5f, unitHeight * 5f);
         stage.addActor(table);
+        stage.addActor(exitButton);
+
     }
 
     @Override

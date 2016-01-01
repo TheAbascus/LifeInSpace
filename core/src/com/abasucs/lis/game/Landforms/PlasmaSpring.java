@@ -11,17 +11,11 @@ public class PlasmaSpring extends Landform
 {
     public PlasmaSpring(int p, int maxR, int currentR)
     {
-        super(Type.PLASMA_SPRING, p, maxR, currentR);
+        super(Type.PLASMASPRING, p, maxR, currentR);
     }
 
     @Override
     public void render(float delta, Matrix4 projMatrix)
-    {
-
-    }
-
-    @Override
-    public void construct(World world, float pX, float pY)
     {
 
     }

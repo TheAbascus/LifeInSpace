@@ -5,6 +5,9 @@ package com.abasucs.lis;
  */
 public final class Constants
 {
+
+    public static final String[] resolutions = {"1600x900", "1440x900", "1280x720", "1280x600", "1024x768","800x600"};
+
     public static final float TIME_STEP = 1/45f;
     public static final int VELOCITY_ITERATIONS = 6;
     public static final int POSITION_ITERATIONS = 2;
@@ -27,7 +30,7 @@ public final class Constants
 
     public static final float LANDFORMSIZEDEG = 15;
     public static final float LANDFORMSIZE = 35;
-    public static final float FORESTHEIGHT = 25;
+    public static final float LANDFORMHEIGHT = 25;
     public static final float MOUNTAINHEIGHT = 30;
 
     public static final int WORLDX = 1000;

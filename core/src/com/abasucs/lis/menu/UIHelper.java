@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -30,6 +31,7 @@ public class UIHelper
     public static TextButtonStyle invisTBStyle;
     public static TextFieldStyle TFStyle;
     public static CheckBoxStyle CBStyle;
+    public static SelectBoxStyle SBStyle;
     public static LabelStyle LStyle;
     public static Map<String, BitmapFont> font = new HashMap<String, BitmapFont>();
 
@@ -46,6 +48,7 @@ public class UIHelper
         TBStyle = uiSkin.get(TextButtonStyle.class);
         TFStyle = uiSkin.get(TextFieldStyle.class);
         CBStyle = uiSkin.get(CheckBoxStyle.class);
+        SBStyle = uiSkin.get(SelectBoxStyle.class);
         LStyle = uiSkin.get(LabelStyle.class);
 
         Drawable invis = new BaseDrawable();
@@ -106,6 +109,12 @@ public class UIHelper
     {
         TFStyle.font = getFont(size, 0);
         return TFStyle;
+    }
+
+    public static SelectBoxStyle getSBStyle(int size)
+    {
+        SBStyle.font = getFont(size, 0);
+        return SBStyle;
     }
 
     public static CheckBoxStyle getCBStyle(int size)

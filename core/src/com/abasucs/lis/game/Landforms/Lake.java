@@ -1,16 +1,15 @@
 package com.abasucs.lis.game.Landforms;
 
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Created by Abascus on 26.12.2015.
+ * Created by Abascus on 01.01.2016.
  */
-public class Cornfield extends Landform
+public class Lake extends Landform
 {
-    public Cornfield(int p, int maxR, int currentR)
+    public Lake(int p, int maxR, int currentR)
     {
-        super(Type.CORNFIELD, p, maxR, currentR);
+        super(Type.LAKE, p, maxR, currentR);
     }
 
     @Override

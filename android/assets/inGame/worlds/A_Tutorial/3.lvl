@@ -19,7 +19,7 @@ FOREST//Type
 ]//end of landform
 
 [//landform
-IRON_MOUNTAIN//Type
+IRONMOUNTAIN//Type
 170//pos of landform
 20//maxRes
 20//currentRes
@@ -33,14 +33,14 @@ FOREST//Type
 ]//end of landform
 
 [//landform
-CATTLE_MEADOW//Type
+CATTLEMEADOW//Type
 290//pos of landform
 10//maxRes
 10//currentRes
 ]//end of landform
 
 [//landform
-PLASMA_SPRING//Type
+PLASMASPRING//Type
 330//pos of landform
 700//maxRes
 650//currentRes

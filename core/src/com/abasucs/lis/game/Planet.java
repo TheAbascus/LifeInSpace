@@ -73,6 +73,7 @@ public class Planet
             rocketBox.setAsBox(Constants.ROCKETHEIGHT, Constants.ROCKETSIZE);
             Fixture rF = rocketBody.createFixture(rocketBox, 0.0f);
             rF.setUserData("ROCKET");
+            rF.setSensor(true);
             rocketBody.setTransform(rX, rY, (float) Math.toRadians(rocketPos));
             rocketBody.setFixedRotation(true);
             rocketBody.setUserData("ROCKET");

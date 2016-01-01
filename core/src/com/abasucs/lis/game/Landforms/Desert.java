@@ -20,12 +20,6 @@ public class Desert extends Landform
     }
 
     @Override
-    public void construct(World world, float pX, float pY)
-    {
-
-    }
-
-    @Override
     public boolean onClick()
     {
         return false;

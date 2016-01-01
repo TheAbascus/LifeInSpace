@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import java.util.Arrays;
@@ -59,20 +60,29 @@ public class Level implements ContactListener
         String b = (String) contact.getFixtureB().getUserData();
         if (a.contentEquals("PLAYER") || b.contentEquals("PLAYER"))
         {
-            String current = a;
-            if(a.contentEquals("PLAYER"))
+            String currentS = a;
+            Fixture currentF = contact.getFixtureA();
+            if (a.contentEquals("PLAYER"))
             {
-             current = b;
+                currentS = b;
+                currentF = contact.getFixtureB();
             }
-            //System.out.println(current);
-            if (current.contains("PH_"))
+            if (currentF.isSensor())
             {
-                int i = Integer.parseInt(current.split("_")[1]);
-                if(playerPlanet!=i)
+                //System.out.println(current);
+                if (currentS.contains("PH_"))
                 {
-                    playerPlanet = i;
-                    player.jumpHeight=Constants.PLAYERMAXJUMP;
-                    player.enterPlanet(contact.getWorldManifold().getPoints()[0], planets[playerPlanet - 1].x, planets[playerPlanet - 1].y);
+                    int i = Integer.parseInt(currentS.split("_")[1]);
+                    if (playerPlanet != i)
+                    {
+                        playerPlanet = i;
+                        player.jumpHeight = Constants.PLAYERMAXJUMP;
+                        player.enterPlanet(contact.getWorldManifold().getPoints()[0], planets[playerPlanet - 1].x, planets[playerPlanet - 1].y);
+                    }
+                }
+                else
+                {
+                    player.currentLandform = currentS;
                 }
             }
         }
@@ -82,6 +92,25 @@ public class Level implements ContactListener
     @Override
     public void endContact(Contact contact)
     {
+        String a = (String) contact.getFixtureA().getUserData();
+        String b = (String) contact.getFixtureB().getUserData();
+        if (a.contentEquals("PLAYER") || b.contentEquals("PLAYER"))
+        {
+            String currentS = a;
+            Fixture currentF = contact.getFixtureA();
+            if (a.contentEquals("PLAYER"))
+            {
+                currentS = b;
+                currentF = contact.getFixtureB();
+            }
+            if (currentF.isSensor())
+            {
+                if (currentS.equals(player.currentLandform ))
+                {
+                    player.currentLandform = "";
+                }
+            }
+        }
     }
 
     @Override
@@ -101,7 +130,7 @@ public class Level implements ContactListener
 
     public void tick(float delta)
     {
-        if(timeLeft!=-1)
+        if (timeLeft != -1)
         {
             timer += delta;
             if (timer >= 1)
@@ -134,7 +163,7 @@ public class Level implements ContactListener
 
     public void render(float delta, boolean running, Batch batch, Matrix4 projMatrix)
     {
-        if(running)
+        if (running)
         {
             tick(delta);
         }
@@ -151,9 +180,9 @@ public class Level implements ContactListener
 
     public boolean questCompleted()
     {
-        for(int i = 0;i<Constants.RESOURCES.length;i++)
+        for (int i = 0; i < Constants.RESOURCES.length; i++)
         {
-            if(getPercentageDone(Constants.RESOURCES[i])<100)
+            if (getPercentageDone(Constants.RESOURCES[i]) < 100)
             {
                 return false;
             }
@@ -163,7 +192,7 @@ public class Level implements ContactListener
 
     public int getPercentageDone(String resName)
     {
-        if(quest.get(resName)>0)
+        if (quest.get(resName) > 0)
         {
             return (int) (100 * (float) resources.get(resName) / (float) quest.get(resName));
         }

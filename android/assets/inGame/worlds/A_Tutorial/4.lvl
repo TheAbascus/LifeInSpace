@@ -22,7 +22,7 @@ FOREST//Type
 420//y
 -1//pos of rocket
 [//landform
-IRON_MOUNTAIN//Type
+IRONMOUNTAIN//Type
 120//pos of landform
 20//maxRes
 20//currentRes
