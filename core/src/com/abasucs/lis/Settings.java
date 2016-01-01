@@ -9,6 +9,7 @@ import com.badlogic.gdx.Preferences;
 public class Settings
 {
     public static Preferences prefData;
+    public static boolean showFPS;
 
     public static void setup()
     {
@@ -29,11 +30,22 @@ public class Settings
         {
             prefData.putBoolean("fullscreen", false);
         }
+        if(!prefData.contains("showFPS"))
+        {
+            prefData.putBoolean("showFPS", false);
+        }
         prefData.flush();
 
         Gdx.graphics.setVSync(prefData.getBoolean("vSync"));
 
         Gdx.graphics.setDisplayMode(prefData.getInteger("width"), prefData.getInteger("height"), prefData.getBoolean("fullscreen"));
+    }
+
+    public static void setShowFPS(boolean fps)
+    {
+        showFPS = fps;
+        prefData.putBoolean("showFPS", fps);
+        prefData.flush();
     }
 
     public static void setVSync(boolean vSync)

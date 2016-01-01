@@ -2,7 +2,6 @@ package com.abasucs.lis.menu;
 
 import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
-import com.abasucs.lis.Util;
 import com.abasucs.lis.game.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -39,7 +39,7 @@ public class GameScreen extends InputListener implements Screen
     TextButton titleLabel;
     Label emptyLabel;
     TextButton openSettings;
-    TextButton openLevelSelection;
+    TextButton abortMission;
 
     Label FPS;
     Label timeLeft;
@@ -62,9 +62,9 @@ public class GameScreen extends InputListener implements Screen
         Gwidth = stage.getWidth();
         Gheight = stage.getHeight();
         FPS.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        timeLeft.setText((int)(level.timeLeft/60)+":"+level.timeLeft%60);
+        timeLeft.setText((int) (level.timeLeft / 60) + ":" + level.timeLeft % 60);
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
         {
             isRunning = !isRunning;
             stage.clear();
@@ -78,15 +78,33 @@ public class GameScreen extends InputListener implements Screen
         stage.act(delta);
         batch.begin();
         UIHelper.renderStarField(delta, batch, Gwidth, Gheight);
-        level.render(delta,isRunning, batch, cam.combined);
+        level.render(delta, isRunning, batch, cam.combined);
         batch.end();
-        if(!isRunning)
-        {
-            Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-        }
-
         stage.draw();
 
+    }
+
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+    {
+        String name = event.getListenerActor().getName();
+
+        if (name.equals("settings") || name.equals("abortMission"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+    {
+        String name = event.getListenerActor().getName();
+        if (name.equals("settings") && openSettings.isChecked())
+        {
+           //TODO fix bug game.setScreen(new SettingsScreen(game, this));
+        }
+        else if (name.equals("abortMission") && abortMission.isChecked())
+        {
+        }
     }
 
     @Override
@@ -109,7 +127,7 @@ public class GameScreen extends InputListener implements Screen
         float unitWidth = stage.getWidth() / 10;
         float unitHeight = stage.getHeight() / 10;
 
-        if(!isRunning)
+        if (!isRunning)
         {
             Table table = new Table();
             table.center();
@@ -117,18 +135,18 @@ public class GameScreen extends InputListener implements Screen
             emptyLabel = new Label("", UIHelper.uiSkin);
             openSettings = UIHelper.genButton("Settings", "settings", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
             openSettings.addListener(this);
-            openLevelSelection = UIHelper.genButton("Level Selection", "levelSelection", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
-            openLevelSelection.addListener(this);
+            abortMission = UIHelper.genButton("Abort Mission", "abortMission", unitWidth * 2.8f, unitHeight * 2.5f, 0, 0, 38, false);
+            abortMission.addListener(this);
 
-            table.add(titleLabel).width(unitWidth*5f).height(unitHeight * 0.7f);
+            table.add(titleLabel).width(unitWidth * 5f).height(unitHeight * 0.7f);
             table.row();
             table.add(emptyLabel).width(unitWidth).height(unitHeight * 3f);
             table.row();
             table.add(openSettings).width(unitWidth * 7f).height(unitHeight * 1f);
             table.row();
-            table.add(emptyLabel).width(unitWidth*10).height(unitHeight * 1f);
+            table.add(emptyLabel).width(unitWidth * 10).height(unitHeight * 1f);
             table.row();
-            table.add(openLevelSelection).width(unitWidth * 3f).height(unitHeight * 1f);
+            table.add(abortMission).width(unitWidth * 3f).height(unitHeight * 1f);
             table.row();
 
             table.setPosition(unitWidth * 5f, unitHeight * 5f);
@@ -136,15 +154,15 @@ public class GameScreen extends InputListener implements Screen
         }
 
 
-
-        FPS = new Label("FPS: 0", UIHelper.getLStyle(38, 0));
-FPS.setPosition(0, unitHeight*10, Align.topLeft);
+        FPS = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), UIHelper.getLStyle(38, 0));
+        FPS.setPosition(0, unitHeight * 10, Align.topLeft);
         stage.addActor(FPS);
-
-        timeLeft = new Label("0:00", UIHelper.getLStyle(38, 0));
-timeLeft.setPosition(unitWidth*10, unitHeight*10, Align.topRight);
-        stage.addActor(timeLeft);
-
+        timeLeft = new Label((int) (level.timeLeft / 60) + ":" + level.timeLeft % 60, UIHelper.getLStyle(38, 0));
+        timeLeft.setPosition(unitWidth * 10, unitHeight * 10, Align.topRight);
+        if (level.timeLeft != -1)
+        {
+            stage.addActor(timeLeft);
+        }
     }
 
     @Override
@@ -165,17 +183,19 @@ timeLeft.setPosition(unitWidth*10, unitHeight*10, Align.topRight);
     @Override
     public void hide()
     {
-        dispose();
+     //   dispose();
     }
 
     @Override
     public void pause()
     {
+        isRunning = false;
     }
 
     @Override
     public void resume()
     {
+
     }
 
     @Override

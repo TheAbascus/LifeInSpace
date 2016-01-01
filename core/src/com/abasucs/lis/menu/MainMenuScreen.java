@@ -105,7 +105,7 @@ public class MainMenuScreen extends InputListener implements Screen
         }
         else if (name.equals("settings") && openSettings.isChecked())
         {
-            game.setScreen(new SettingsScreen(game));
+            game.setScreen(new SettingsScreen(game, this));
         }
         else if (name.equals("credits") && openCredits.isChecked())
         {
@@ -171,7 +171,7 @@ public class MainMenuScreen extends InputListener implements Screen
     @Override
     public void hide()
     {
-        dispose();
+//        dispose();
     }
 
     @Override

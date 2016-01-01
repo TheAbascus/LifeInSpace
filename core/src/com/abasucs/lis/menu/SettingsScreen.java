@@ -26,6 +26,7 @@ public class SettingsScreen extends InputListener implements Screen
 
     Main game;
     Stage stage;
+    Screen parent;
 
     SpriteBatch batch;
     OrthographicCamera cam;
@@ -36,13 +37,15 @@ public class SettingsScreen extends InputListener implements Screen
     TextButton cancelButton;
     CheckBox fullscreen;
     CheckBox vSync;
+    CheckBox showFPS;
 
 
-    public SettingsScreen(Main instance)
+
+    public SettingsScreen(Main instance, Screen p)
     {
         game = instance;
-
         batch = new SpriteBatch();
+        parent = p;
     }
 
     float mult = 1.8f;
@@ -84,11 +87,11 @@ public class SettingsScreen extends InputListener implements Screen
         if (name.equals("save") && saveButton.isChecked())
         {
             //TODO read&applie Settings
-            game.setScreen(new MainMenuScreen(game));
+            game.setScreen(parent);
         }
         else if (name.equals("cancel") && cancelButton.isChecked())
         {
-            game.setScreen(new MainMenuScreen(game));
+            game.setScreen(parent);
         }
     }
 
@@ -106,8 +109,12 @@ public class SettingsScreen extends InputListener implements Screen
 
         vSync = new CheckBox("Enable vSync", UIHelper.getCBStyle(28));
         vSync.setName("vSync");
+
         fullscreen = new CheckBox("Enable Fullscreen", UIHelper.getCBStyle(28));
         fullscreen.setName("fullscreen");
+
+        showFPS = new CheckBox("Show FPS", UIHelper.getCBStyle(28));
+        showFPS.setName("showFPS");
 
         saveButton = UIHelper.genButton("Save", "save", unitWidth * 3f, unitHeight, unitWidth * 7, 0, 38, false);
         saveButton.align(Align.right);

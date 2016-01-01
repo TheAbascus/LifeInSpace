@@ -1,11 +1,11 @@
 package com.abasucs.lis.game.Landforms;
 
 import com.abasucs.lis.Constants;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -14,10 +14,14 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class IronMountain extends Landform
 {
+    boolean hasMine = false;
+    Fixture bottomFixture;
+
     public IronMountain(int p, int maxR, int currentR)
     {
         this(Type.IRON_MOUNTAIN, p, maxR, currentR);
     }
+
     public IronMountain(Type t, int p, int maxR, int currentR)
     {
         super(t, p, maxR, currentR);
@@ -32,7 +36,7 @@ public class IronMountain extends Landform
     @Override
     public void construct(World world, float pX, float pY)
     {
-        construct(world,pX,pY,"IRONMOUNTAIN");
+        construct(world, pX, pY, "IRONMOUNTAIN");
     }
 
     public void construct(World world, float pX, float pY, String s)
@@ -45,10 +49,10 @@ public class IronMountain extends Landform
         Body bottomBody = world.createBody(bottom);
         PolygonShape bottomBox = new PolygonShape();
         bottomBox.setAsBox(Constants.MOUNTAINHEIGHT, Constants.LANDFORMSIZE);
-        bottomBody.createFixture(bottomBox, 0.0f);
+        bottomFixture = bottomBody.createFixture(bottomBox, 0.0f);
+        bottomFixture.setUserData(s + "_BOTTOM");
         bottomBody.setTransform(x, y, (float) Math.toRadians(pos));
         bottomBody.setFixedRotation(true);
-        bottomBody.setUserData(s+"_BOTTOM");
         bottomBox.dispose();
 
         x = (float) (pX + (Constants.PLANETRADIUS + Constants.MOUNTAINHEIGHT * 3 / 2) * Math.cos(Math.toRadians(pos)));
@@ -59,13 +63,19 @@ public class IronMountain extends Landform
         Body topBody = world.createBody(top);
         PolygonShape topBox = new PolygonShape();
         topBox.setAsBox(Constants.MOUNTAINHEIGHT / 2, Constants.LANDFORMSIZE);
-        topBody.createFixture(topBox, 0.0f);
+        Fixture topFixture = topBody.createFixture(topBox, 0.0f);
+        topFixture.setUserData(s + "_TOP");
         topBody.setTransform(x, y, (float) Math.toRadians(pos));
         topBody.setFixedRotation(true);
-        topBody.setUserData(s+"_TOP");
         topBox.dispose();
 
 
+    }
+
+    public void buildMine()
+    {
+        hasMine = true;
+        bottomFixture.setSensor(true);
     }
 
     @Override

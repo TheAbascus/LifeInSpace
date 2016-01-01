@@ -19,6 +19,7 @@ public class Player
     Body playerBody;
     float pos;
     float jumpHeight;
+    String currentLandform;
 
     public void construct(World world, float pX, float pY)
     {

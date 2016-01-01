@@ -101,11 +101,14 @@ public class Level implements ContactListener
 
     public void tick(float delta)
     {
-        timer+=delta;
-        if(timer>=1)
+        if(timeLeft!=-1)
         {
-            timer-=1;
-            timeLeft-=1;
+            timer += delta;
+            if (timer >= 1)
+            {
+                timer -= 1;
+                timeLeft -= 1;
+            }
         }
         float frameTime = Math.min(delta, 0.25f);
         tickAccumulator += frameTime;
@@ -144,6 +147,30 @@ public class Level implements ContactListener
         }
 
         debugRenderer.render(world, projMatrix);
+    }
+
+    public boolean questCompleted()
+    {
+        for(int i = 0;i<Constants.RESOURCES.length;i++)
+        {
+            if(getPercentageDone(Constants.RESOURCES[i])<100)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int getPercentageDone(String resName)
+    {
+        if(quest.get(resName)>0)
+        {
+            return (int) (100 * (float) resources.get(resName) / (float) quest.get(resName));
+        }
+        else
+        {
+            return 100;
+        }
     }
 
     public void addQuest(String id, int amount)

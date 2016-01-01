@@ -21,9 +21,10 @@ public class LevelIO
         }
         Array.ArrayIterator<String> iterator = new Array.ArrayIterator(new Array(data));
 
-        int line = 3;
+        int line = 4;
         Level level = new Level();
         level.name = iterator.next();
+        level.timeLeft = Integer.parseInt(iterator.next());
         level.playerPlanet = Integer.parseInt(iterator.next());
         level.player = new Player();
         level.player.pos = Integer.parseInt(iterator.next());
@@ -66,7 +67,7 @@ public class LevelIO
                     {}
                     else
                     {
-                        throw new Exception("Defect Planet on line " + line + " of " + path+":  "+current);
+                        throw new Exception("Defect Planet on line " + line + " of " + path+":  ");
                     }
                 }
 
@@ -81,11 +82,11 @@ public class LevelIO
                 String[] res = current.replace("-", "").split(" ");
                 level.addQuest(res[0], Integer.parseInt(res[1]));
             }
-            else if(current.contentEquals(""))
+            else if(current.matches("[\r\n]+"))
             {}
             else
             {
-                throw new Exception("Defect Level on line" + line + "of" + path);
+                throw new Exception("Defect Level on line " + line + " of" + path);
             }
         }
 
