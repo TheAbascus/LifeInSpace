@@ -1,6 +1,7 @@
 package com.abasucs.lis.menu;
 
 
+import com.abasucs.lis.Constants;
 import com.abasucs.lis.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -44,7 +45,6 @@ public class MainMenuScreen extends InputListener implements Screen
     public MainMenuScreen(Main instance)
     {
         game = instance;
-
         batch = new SpriteBatch();
 
     }
@@ -171,7 +171,7 @@ public class MainMenuScreen extends InputListener implements Screen
     @Override
     public void hide()
     {
-//        dispose();
+        dispose();
     }
 
     @Override

@@ -39,8 +39,6 @@ public class UIHelper
     static float timer_1, timer_2, timer_3;
     static float mult = 1.8f;
 
-    public static Drawable invis;
-
     public static void setup()
     {
         uiSkin = new Skin(Gdx.files.internal("menu/uiskin.json"));
@@ -88,7 +86,7 @@ public class UIHelper
 
     public static TextButton genButton(String name, String internalN, float width, float height, float x, float y, int size, boolean visible)
     {
-        TextButton button = null;
+        TextButton button;
         if (visible)
         {
             TBStyle.font = getFont(size, 0);
@@ -137,7 +135,7 @@ public class UIHelper
         }
         else
         {
-            FreeTypeFontGenerator generator = null;
+            FreeTypeFontGenerator generator;
             switch (fontID)
             {
                 case 0:

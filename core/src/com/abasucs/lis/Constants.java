@@ -28,8 +28,8 @@ public final class Constants
     public static final float PLAYERJETSPEED = 25;
     public static final float PLAYERMAXJUMP = 50;
 
-    public static final float LANDFORMSIZEDEG = 15;
-    public static final float LANDFORMSIZE = 35;
+    public static final float LANDFORMSIZEDEG = 20;
+    public static final float LANDFORMSIZE = (float)DEGSIZE*LANDFORMSIZEDEG;
     public static final float LANDFORMHEIGHT = 25;
     public static final float MOUNTAINHEIGHT = 30;
 

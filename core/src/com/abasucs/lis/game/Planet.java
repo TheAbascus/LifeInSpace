@@ -80,9 +80,9 @@ public class Planet
             rocketBox.dispose();
         }
 
-        for (int i = 0; i < landforms.length; i++)
+        for (Landform landform : landforms)
         {
-            landforms[i].construct(world, x, y);
+            landform.construct(world, x, y);
         }
 
     }
@@ -92,9 +92,9 @@ public class Planet
         batch.draw(tex, x-Constants.PLANETRADIUS, y-Constants.PLANETRADIUS,Constants.PLANETRADIUS*2,Constants.PLANETRADIUS*2); //TODO render?
         if (landforms != null)
         {
-            for (int i = 0; i < landforms.length; i++)
+            for (Landform landform : landforms)
             {
-                landforms[i].render(delta, projMatrix);
+                landform.render(delta, projMatrix);
             }
         }
     }

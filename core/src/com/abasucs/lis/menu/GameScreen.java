@@ -89,11 +89,7 @@ public class GameScreen extends InputListener implements Screen
     {
         String name = event.getListenerActor().getName();
 
-        if (name.equals("settings") || name.equals("abortMission"))
-        {
-            return true;
-        }
-        return false;
+        return name.equals("settings") || name.equals("abortMission");
     }
 
     public void touchUp(InputEvent event, float x, float y, int pointer, int button)
